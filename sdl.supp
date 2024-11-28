@@ -1,0 +1,11 @@
+{
+   sdl_init_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   fun:SDL_Init*
+   fun:SDL_CreateWindow*
+   fun:SDL_CreateRenderer*
+   fun:SDL_DestroyRenderer*
+   fun:SDL_DestroyWindow*
+   fun:SDL_Quit*
+}
