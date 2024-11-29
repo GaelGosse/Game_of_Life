@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_of_life.h                                     :+:      :+:    :+:   */
+/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2024/11/28 02:54:31 by gael             ###   ########.fr       */
+/*   Updated: 2024/11/30 00:08:54 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 
 // ------------------------------ include ----------------------------------- //
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_ttf.h>
 # include <string.h>
+# include <stdlib.h>
+# include <stdio.h>
 // color
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
@@ -44,7 +47,7 @@
 # define BACK_WHITE "\033[0;47m"
 # define RESET "\033[0m"
 # define RST "\033[0m"
-# define clrscr() printf("\e[1;1H\e[2J")
+# define clrscr() printf("\e[1;1H\e[2J");
 // ---------------------------- end include --------------------------------- //
 
 // ------------------------------ define ------------------------------------ //
@@ -77,28 +80,34 @@ typedef struct s_app
 	double			play_time;
 	int				is_clicked_dead;
 	int				is_clicked_alive;
+	TTF_Font		*font;
 }					t_app;
 // ---------------------------- end struct ---------------------------------- //
 
-//map.c
+//src/map.c
 void	copy_to_map();
 void	fill_map();
 void	init_map();
 void	print_map(int map[GRID_HEIGHT][GRID_WIDTH]);
-//main.c
-//rules.c
+//src/main.c
+//src/rules.c
 void	apply_rules();
 int		count_alive_cells(int y, int x);
-//input.c
+//src/input.c
 void	do_input(void);
-//init.c
+//src/utils.c
+char	*ft_itoa(int nbr);
+int		num_len(long int nbr);
+//src/init.c
 void	clean_up();
 void	init_SDL(void);
+void	init_SDL_font();
 void	init_app_struct();
-//draw.c
+//src/draw.c
 void	draw_grid(int x_start, int y_start, int x_end, int y_end);
 void	draw_square(int x_start, int y_start, int len);
 void	prepare_scene(void);
 void	present_scene(void);
+void	render_text(const char *text, int x, int y, SDL_Color color);
 
 #endif

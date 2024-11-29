@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -O3 -Wall -Wextra -Werror
-LDFLAGS = -lSDL2
+LDFLAGS = -lSDL2 -lSDL2_ttf
 
 # ----------------------------------- srcs ----------------------------------- #
 SRC =	src/main.c \
@@ -8,7 +8,8 @@ SRC =	src/main.c \
 		src/input.c \
 		src/draw.c \
 		src/map.c \
-		src/rules.c
+		src/rules.c \
+		src/utils.c
 # --------------------------------- end srcs --------------------------------- #
 
 OBJ_DIR = bin

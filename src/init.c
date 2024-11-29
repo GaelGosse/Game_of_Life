@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2024/11/28 16:11:47 by gael             ###   ########.fr       */
+/*   Updated: 2024/11/29 18:46:47 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,20 @@ void	init_SDL(void)
 	}
 }
 
+void	init_SDL_font()
+{
+	if (TTF_Init() == -1) {
+		printf("Failed to initialize SDL_ttf: %s\n", TTF_GetError());
+		exit(1);
+	}
+
+	app.font = TTF_OpenFont("font/confession.ttf", 24); // Remplacez par le chemin de votre police
+	if (!app.font) {
+		printf("Failed to load font: %s\n", TTF_GetError());
+		exit(1);
+	}
+}
+
 void	init_app_struct()
 {
 	app.renderer = NULL;
@@ -63,11 +77,14 @@ void	init_app_struct()
 	app.play_time = 1000.0;
 	app.is_clicked_dead = 0;
 	app.is_clicked_alive = 0;
+	init_SDL_font();
 	init_SDL();
 }
 
 void	clean_up()
 {
+	TTF_CloseFont(app.font);
+	TTF_Quit();
 	SDL_DestroyRenderer(app.renderer);
 	SDL_DestroyWindow(app.window);
 	SDL_Quit();

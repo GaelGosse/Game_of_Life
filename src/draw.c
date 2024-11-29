@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:37:18 by gael              #+#    #+#             */
-/*   Updated: 2024/11/28 02:07:08 by gael             ###   ########.fr       */
+/*   Updated: 2024/11/29 17:36:18 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,26 @@ void	draw_square(int x_start, int y_start, int len)
 
 		y_start++;
 	}
+}
+
+void render_text(const char *text, int x, int y, SDL_Color color)
+{
+	SDL_Surface *surface = TTF_RenderText_Solid(app.font, text, color);
+	if (!surface) {
+		printf("Failed to create text surface: %s\n", TTF_GetError());
+		return;
+	}
+
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(app.renderer, surface);
+	if (!texture) {
+		printf("Failed to create text texture: %s\n", SDL_GetError());
+		SDL_FreeSurface(surface);
+		return;
+	}
+
+	SDL_Rect dstrect = { x, y, surface->w, surface->h };
+	SDL_FreeSurface(surface);
+
+	SDL_RenderCopy(app.renderer, texture, NULL, &dstrect);
+	SDL_DestroyTexture(texture);
 }
