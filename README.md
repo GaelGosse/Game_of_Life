@@ -2,6 +2,8 @@
 
 Simple Conway's game of life coded in C with SDL2
 
+<img width=400 height=auto src="preview.gif">
+
 ## Install and launch
 
 in the repository, launch in the console
