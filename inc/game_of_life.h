@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2024/11/30 00:08:54 by gael             ###   ########.fr       */
+/*   Updated: 2024/11/30 15:30:18 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	fill_map();
 void	init_map();
 void	print_map(int map[GRID_HEIGHT][GRID_WIDTH]);
 //src/main.c
+int		format_dimensions(int dimension);
 //src/rules.c
 void	apply_rules();
 int		count_alive_cells(int y, int x);
@@ -100,9 +101,9 @@ char	*ft_itoa(int nbr);
 int		num_len(long int nbr);
 //src/init.c
 void	clean_up();
-void	init_SDL(void);
+void	init_SDL(int screen_h, int screen_w);
 void	init_SDL_font();
-void	init_app_struct();
+void	init_app_struct(int screen_h, int screen_w);
 //src/draw.c
 void	draw_grid(int x_start, int y_start, int x_end, int y_end);
 void	draw_square(int x_start, int y_start, int len);

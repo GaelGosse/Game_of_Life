@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2024/11/29 18:46:47 by gael             ###   ########.fr       */
+/*   Updated: 2024/11/30 00:36:47 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_app	app;
 
-void	init_SDL(void)
+void	init_SDL(int screen_h, int screen_w)
 {
 	int rendererFlags, windowFlags;
 
@@ -29,8 +29,8 @@ void	init_SDL(void)
 	app.window = SDL_CreateWindow("Game of Life", \
 	SDL_WINDOWPOS_UNDEFINED, \
 	SDL_WINDOWPOS_UNDEFINED, \
-	SCREEN_WIDTH, \
-	SCREEN_HEIGHT, \
+	screen_w, \
+	screen_h, \
 	windowFlags);
 	if (!app.window)
 	{
@@ -65,7 +65,7 @@ void	init_SDL_font()
 	}
 }
 
-void	init_app_struct()
+void	init_app_struct(int screen_h, int screen_w)
 {
 	app.renderer = NULL;
 	app.window = NULL;
@@ -78,7 +78,7 @@ void	init_app_struct()
 	app.is_clicked_dead = 0;
 	app.is_clicked_alive = 0;
 	init_SDL_font();
-	init_SDL();
+	init_SDL(screen_h, screen_w);
 }
 
 void	clean_up()
