@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:01 by gael              #+#    #+#             */
-/*   Updated: 2024/11/28 22:52:17 by gael             ###   ########.fr       */
+/*   Updated: 2025/05/10 20:02:27 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,62 @@ void do_input(void)
 	SDL_GetMouseState(&app.mouse.x, &app.mouse.y);
 	while (SDL_PollEvent(&event))
 	{
-		printf("app.play_time: %f\n", app.play_time);
-		printf("event.type: %i\n", event.type);
-		printf("event.key.keysym.scancode: %i\n", event.key.keysym.scancode);
+		// printf("app.play_time: %f\n", app.play_time);
+		// printf("event.type: %i\n", event.type);
+		// printf("event.key.keysym.scancode: %i\n", event.key.keysym.scancode);
 		switch (event.type)
 		{
 			case SDL_QUIT:
 				exit(0);
 				break;
-			case 1026:
-				// mouse click up
-				app.is_clicked_alive = 0;
-				app.is_clicked_dead = 0;
+			case SDL_KEYDOWN: // Vérifiez que l'événement est un appui sur une touche
+				switch (event.key.keysym.scancode)
+				{
+					case 21:
+						// r : reset
+						if (app.launched == PAUSE)
+							init_map();
+						break;
+					case 41:
+						// esc
+						exit(0);
+						break;
+					case 44:
+						// space
+						if (app.launched == PLAY)
+						{
+							app.launched = PAUSE;
+							app.time = 50;
+						}
+						else
+						{
+							app.launched = PLAY;
+							app.time = (int)app.play_time;
+						}
+						break;
+					case 82:
+						// arrow up
+						if (app.play_time < 5000)
+							app.play_time *= 1.1;
+						if (app.launched == PLAY)
+							app.time = (int)app.play_time;
+						else
+							app.time = 50;
+						break;
+					case 81:
+						// arrow down
+						if (app.play_time > 50)
+							app.play_time *= 0.9;
+						if (app.launched == PLAY)
+							app.time = (int)app.play_time;
+						else
+							app.time = 50;
+						break;
+					default:
+						break;
+				}
 				break;
-			case 1025:
+			case SDL_MOUSEBUTTONDOWN:
 				// mouse click down
 				if (app.launched == PAUSE)
 				{
@@ -67,7 +109,12 @@ void do_input(void)
 					}
 				}
 				break;
-			case 1024:
+			case SDL_MOUSEBUTTONUP:
+				// mouse click up
+				app.is_clicked_alive = 0;
+				app.is_clicked_dead = 0;
+				break;
+			case SDL_MOUSEMOTION:
 				// mouse move
 				if (app.launched == PAUSE)
 				{
@@ -86,53 +133,9 @@ void do_input(void)
 				}
 				break;
 			default:
-				clrscr();
 				break;
 		}
-		switch (event.key.keysym.scancode)
-		{
-			case 21:
-				// r : reset
-				if (app.launched == PAUSE)
-					init_map();
-				break;
-			case 41:
-				// esc
-				exit(0);
-				break;
-			case 44:
-				// space
-				if (app.launched == PLAY)
-				{
-					app.launched = PAUSE;
-					app.time = 50;
-				}
-				else
-				{
-					app.launched = PLAY;
-					app.time = (int)app.play_time;
-				}
-				break;
-			case 82:
-				if (event.type == 768 && app.play_time < 5000)
-					app.play_time *= 1.1;
-				if (app.launched == PLAY)
-					app.time = (int)app.play_time;
-				else
-					app.time = 50;
-				break;
-			case 81:
-				if (event.type == 768 && app.play_time > 50)
-					app.play_time *= 0.9;
-				if (app.launched == PLAY)
-					app.time = (int)app.play_time;
-				else
-					app.time = 50;
-				break;
-			default:
-				clrscr();
-				break;
-		}
+
 		// printf("\n");
 	}
 }
