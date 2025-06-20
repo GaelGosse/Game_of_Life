@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -O3 -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
+# -O3
 LDFLAGS = -lSDL2 -lSDL2_ttf
 
 # ----------------------------------- srcs ----------------------------------- #
@@ -12,7 +13,7 @@ SRC =	src/main.c \
 		src/utils.c
 # --------------------------------- end srcs --------------------------------- #
 
-OBJ_DIR = bin
+OBJ_DIR = obj
 SRC_DIR = src
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

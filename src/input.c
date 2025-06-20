@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:01 by gael              #+#    #+#             */
-/*   Updated: 2025/05/10 20:02:27 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/19 15:29:06 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,83 @@
 
 extern t_app	app;
 
-void do_input(void)
+void	mouse_click_down(t_app *app, int x_mouse, int y_mouse)
+{
+	if (app->launched == PAUSE)
+	{
+		x_mouse = app->mouse.x / CELL_SIZE;
+		y_mouse = app->mouse.y / CELL_SIZE;
+		if (app->map[y_mouse][x_mouse] == 0)
+		{
+			app->is_clicked_alive = 0;
+			app->is_clicked_dead = 1;
+			app->map[y_mouse][x_mouse] = 1;
+			app->copy[y_mouse][x_mouse] = 1;
+		}
+		else
+		{
+			app->is_clicked_alive = 1;
+			app->is_clicked_dead = 0;
+			app->map[y_mouse][x_mouse] = 0;
+			app->copy[y_mouse][x_mouse] = 0;
+		}
+	}
+}
+
+void	mouse_click_move(t_app *app, int x_mouse, int y_mouse)
+{
+	if (app->launched == PAUSE)
+	{
+		x_mouse = app->mouse.x / CELL_SIZE;
+		y_mouse = app->mouse.y / CELL_SIZE;
+		if (app->is_clicked_alive == 1)
+		{
+			app->map[y_mouse][x_mouse] = 0;
+			app->copy[y_mouse][x_mouse] = 0;
+		}
+		else if (app->is_clicked_dead == 1)
+		{
+			app->map[y_mouse][x_mouse] = 1;
+			app->copy[y_mouse][x_mouse] = 1;
+		}
+	}
+}
+
+void	arrow_up(t_app *app)
+{
+	if (app->play_time < 5000)
+		app->play_time *= 1.1;
+	if (app->launched == PLAY)
+		app->time = (int)app->play_time;
+	else
+		app->time = 50;
+}
+
+void	arrow_down(t_app *app)
+{
+	if (app->play_time > 50)
+		app->play_time *= 0.9;
+	if (app->launched == PLAY)
+		app->time = (int)app->play_time;
+	else
+		app->time = 50;
+}
+
+void	space_bar(t_app *app)
+{
+	if (app->launched == PLAY)
+	{
+		app->launched = PAUSE;
+		app->time = 50;
+	}
+	else
+	{
+		app->launched = PLAY;
+		app->time = (int)app->play_time;
+	}
+}
+
+void	do_input(void)
 {
 	SDL_Event	event;
 	int			x_mouse = 0;
@@ -31,7 +107,7 @@ void do_input(void)
 			case SDL_QUIT:
 				exit(0);
 				break;
-			case SDL_KEYDOWN: // Vérifiez que l'événement est un appui sur une touche
+			case SDL_KEYDOWN:
 				switch (event.key.keysym.scancode)
 				{
 					case 21:
@@ -44,98 +120,30 @@ void do_input(void)
 						exit(0);
 						break;
 					case 44:
-						// space
-						if (app.launched == PLAY)
-						{
-							app.launched = PAUSE;
-							app.time = 50;
-						}
-						else
-						{
-							app.launched = PLAY;
-							app.time = (int)app.play_time;
-						}
+						space_bar(&app);
 						break;
 					case 82:
-						// arrow up
-						if (app.play_time < 5000)
-							app.play_time *= 1.1;
-						if (app.launched == PLAY)
-							app.time = (int)app.play_time;
-						else
-							app.time = 50;
+						arrow_up(&app);
 						break;
 					case 81:
-						// arrow down
-						if (app.play_time > 50)
-							app.play_time *= 0.9;
-						if (app.launched == PLAY)
-							app.time = (int)app.play_time;
-						else
-							app.time = 50;
+						arrow_down(&app);
 						break;
 					default:
 						break;
 				}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				// mouse click down
-				if (app.launched == PAUSE)
-				{
-					x_mouse = app.mouse.x / CELL_SIZE;
-					y_mouse = app.mouse.y / CELL_SIZE;
-					// mouse down toggle
-					if (app.map[y_mouse][x_mouse] == 0)
-					{
-						app.is_clicked_alive = 0;
-						app.is_clicked_dead = 1;
-					}
-					else
-					{
-						app.is_clicked_alive = 1;
-						app.is_clicked_dead = 0;
-					}
-
-					// single click
-					if (app.map[y_mouse][x_mouse] == 0)
-					{
-						app.map[y_mouse][x_mouse] = 1;
-						app.copy[y_mouse][x_mouse] = 1;
-					}
-					else
-					{
-						app.map[y_mouse][x_mouse] = 0;
-						app.copy[y_mouse][x_mouse] = 0;
-					}
-				}
+				mouse_click_down(&app, x_mouse, y_mouse);
 				break;
 			case SDL_MOUSEBUTTONUP:
-				// mouse click up
 				app.is_clicked_alive = 0;
 				app.is_clicked_dead = 0;
 				break;
 			case SDL_MOUSEMOTION:
-				// mouse move
-				if (app.launched == PAUSE)
-				{
-					x_mouse = app.mouse.x / CELL_SIZE;
-					y_mouse = app.mouse.y / CELL_SIZE;
-					if (app.is_clicked_alive == 1)
-					{
-						app.map[y_mouse][x_mouse] = 0;
-						app.copy[y_mouse][x_mouse] = 0;
-					}
-					else if (app.is_clicked_dead == 1)
-					{
-						app.map[y_mouse][x_mouse] = 1;
-						app.copy[y_mouse][x_mouse] = 1;
-					}
-				}
+				mouse_click_move(&app, x_mouse, y_mouse);
 				break;
 			default:
 				break;
-		}
-
-		// printf("\n");
-	}
+		} // switch event.type
+	} // while SDL poll event
 }

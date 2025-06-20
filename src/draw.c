@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:37:18 by gael              #+#    #+#             */
-/*   Updated: 2024/11/29 17:36:18 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/20 21:50:45 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	present_scene(void)
 void	draw_grid(int x_start, int y_start, int x_end, int y_end)
 {
 	SDL_SetRenderDrawColor(app.renderer, 128, 128, 128, 255);
-	// SDL_SetRenderDrawColor(app.renderer, 255, 0, 0, 255);
 
+	// horizontal
 	y_start = 0;
 	x_end = SCREEN_WIDTH;
 	while (y_start < SCREEN_HEIGHT)
@@ -41,10 +41,11 @@ void	draw_grid(int x_start, int y_start, int x_end, int y_end)
 		SDL_RenderDrawLine(app.renderer, x_start, y_start, x_end, y_end);
 		y_start += CELL_SIZE;
 
-		if (y_start > 1000)
+		if (y_start > 100000)
 			break ;
 	}
 
+	// vertical
 	y_start = 0;
 	y_end = SCREEN_HEIGHT;
 	while (x_start < SCREEN_WIDTH)
@@ -53,7 +54,7 @@ void	draw_grid(int x_start, int y_start, int x_end, int y_end)
 		SDL_RenderDrawLine(app.renderer, x_start, y_start, x_end, y_end);
 		x_start += CELL_SIZE;
 
-		if (x_start > 1000)
+		if (x_start > 100000)
 			break ;
 	}
 }
@@ -62,30 +63,31 @@ void	draw_square(int x_start, int y_start, int len)
 {
 	int	limit = y_start + len;
 
-	// horizontal lines draw
+	// draw with horizontal lines
 	y_start++;
 	while (y_start < limit)
 	{
 		SDL_RenderDrawLine(app.renderer,
-		x_start + 1,
-		y_start,
-		x_start + len - 1,
-		y_start);
-
+			x_start + 1,
+			y_start,
+			x_start + len - 1,
+			y_start);
 		y_start++;
 	}
 }
 
-void render_text(const char *text, int x, int y, SDL_Color color)
+void	render_text(const char *text, int x, int y, SDL_Color color)
 {
 	SDL_Surface *surface = TTF_RenderText_Solid(app.font, text, color);
-	if (!surface) {
+	if (!surface)
+	{
 		printf("Failed to create text surface: %s\n", TTF_GetError());
 		return;
 	}
 
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(app.renderer, surface);
-	if (!texture) {
+	if (!texture)
+	{
 		printf("Failed to create text texture: %s\n", SDL_GetError());
 		SDL_FreeSurface(surface);
 		return;

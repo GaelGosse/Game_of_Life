@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
+/*   game_of_life.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2024/11/30 15:30:18 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/20 21:45:00 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@
 // ---------------------------- end include --------------------------------- //
 
 // ------------------------------ define ------------------------------------ //
-# define GRID_WIDTH 40
-# define GRID_HEIGHT 30
-# define CELL_SIZE 20
 # define PLAY 1
 # define PAUSE 0
-# define SCREEN_WIDTH GRID_WIDTH * CELL_SIZE
-# define SCREEN_HEIGHT GRID_HEIGHT * CELL_SIZE
+# define CELL_SIZE 20
+# define GRID_WIDTH 200
+# define GRID_HEIGHT 200
+# define SCREEN_WIDTH 40 * CELL_SIZE
+# define SCREEN_HEIGHT 30 * CELL_SIZE
 // ---------------------------- end define ---------------------------------- //
 
 // ------------------------------ struct ------------------------------------ //
@@ -77,6 +77,7 @@ typedef struct s_app
 	int				copy[GRID_HEIGHT][GRID_WIDTH];
 	int				launched;
 	int				time;
+	int				generations;
 	double			play_time;
 	int				is_clicked_dead;
 	int				is_clicked_alive;

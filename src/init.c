@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2024/11/30 00:36:47 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/19 15:46:59 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	init_app_struct(int screen_h, int screen_w)
 	init_map();
 	app.launched = PAUSE;
 	app.time = 50;
+	app.generations = 0;
 	app.play_time = 1000.0;
 	app.is_clicked_dead = 0;
 	app.is_clicked_alive = 0;

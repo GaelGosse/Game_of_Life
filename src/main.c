@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:13 by gael              #+#    #+#             */
-/*   Updated: 2024/11/30 15:30:50 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/19 15:47:16 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 	printf("argc: %i\n", argc);
 	if (argc != 3 && argc != 1)
 	{
-		printf("Err: Must have no args or two\n");
+		printf("Err: Must have no args or two (cf ./game_of_life )\n");
 		return (1);
 	}
 	if (argc == 3)
@@ -51,7 +51,8 @@ int	main(int argc, char **argv)
 	init_app_struct(screen_h, screen_w);
 	atexit(clean_up);
 	// clrscr();
-	SDL_Color white = { 255, 255, 255, 255 };
+	SDL_Color	white = { 255, 255, 255, 255 };
+	Uint32		last_update = SDL_GetTicks();
 
 	while (1)
 	{
@@ -61,8 +62,14 @@ int	main(int argc, char **argv)
 
 		do_input();
 		fill_map();
-		if (app.launched == PLAY)
+
+		Uint32 now = SDL_GetTicks();
+		if (app.launched == PLAY && (int)(now - last_update) >= app.time)
+		{
 			apply_rules();
+			last_update = now;
+			app.generations++;
+		}
 
 		seconds_in_str = ft_itoa(app.play_time);
 		strcpy(display_time, "Time per frame (ms): ");
@@ -71,7 +78,7 @@ int	main(int argc, char **argv)
 		render_text(display_time, 10, 10, white);
 		present_scene();
 
-		SDL_Delay(app.time);
+		SDL_Delay(10);
 	}
 	(void)x_start;
 	(void)y_start;
