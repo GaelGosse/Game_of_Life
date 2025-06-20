@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:13 by gael              #+#    #+#             */
-/*   Updated: 2025/06/19 15:47:16 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/21 00:16:59 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,15 @@ int	main(int argc, char **argv)
 	init_app_struct(screen_h, screen_w);
 	atexit(clean_up);
 	// clrscr();
-	SDL_Color	white = { 255, 255, 255, 255 };
+	SDL_Color	white = {255, 255, 255, 255};
 	Uint32		last_update = SDL_GetTicks();
 
 	while (1)
 	{
 		prepare_scene();
 
-		draw_grid(x_start, y_start, x_end, y_end);
-
+		draw_map();
 		do_input();
-		fill_map();
 
 		Uint32 now = SDL_GetTicks();
 		if (app.launched == PLAY && (int)(now - last_update) >= app.time)

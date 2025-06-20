@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2025/06/19 15:46:59 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/21 01:23:59 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	init_app_struct(int screen_h, int screen_w)
 	app.mouse.x = 0;
 	app.mouse.y = 0;
 	init_map();
+	app.view_x = 50;
+	app.view_y = 50;
 	app.launched = PAUSE;
 	app.time = 50;
 	app.generations = 0;

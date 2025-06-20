@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:20 by gael              #+#    #+#             */
-/*   Updated: 2024/11/28 02:07:08 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/21 00:16:28 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,6 @@ void	print_map(int map[GRID_HEIGHT][GRID_WIDTH])
 		y++;
 	}
 	printf("\n");
-}
-
-void	fill_map()
-{
-	int	x = 0;
-	int	y = 0;
-
-	while (y < GRID_HEIGHT)
-	{
-		x = 0;
-		while (x < GRID_WIDTH)
-		{
-			if (app.map[y][x] == 1)
-			{
-				if (app.launched == PAUSE)
-					SDL_SetRenderDrawColor(app.renderer, 128, 146, 255, 255);
-				else
-					SDL_SetRenderDrawColor(app.renderer, 255, 255, 255, 255);
-				draw_square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
-			}
-			x++;
-		}
-		y++;
-	}
 }
 
 void	copy_to_map()

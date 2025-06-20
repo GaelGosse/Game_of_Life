@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:01 by gael              #+#    #+#             */
-/*   Updated: 2025/06/19 15:29:06 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/21 01:23:31 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	mouse_click_down(t_app *app, int x_mouse, int y_mouse)
 {
 	if (app->launched == PAUSE)
 	{
-		x_mouse = app->mouse.x / CELL_SIZE;
-		y_mouse = app->mouse.y / CELL_SIZE;
+		x_mouse = app->mouse.x / CELL_SIZE + app->view_x;
+		y_mouse = app->mouse.y / CELL_SIZE + app->view_y;
 		if (app->map[y_mouse][x_mouse] == 0)
 		{
 			app->is_clicked_alive = 0;
@@ -41,8 +41,8 @@ void	mouse_click_move(t_app *app, int x_mouse, int y_mouse)
 {
 	if (app->launched == PAUSE)
 	{
-		x_mouse = app->mouse.x / CELL_SIZE;
-		y_mouse = app->mouse.y / CELL_SIZE;
+		x_mouse = app->mouse.x / CELL_SIZE + app->view_x;
+		y_mouse = app->mouse.y / CELL_SIZE + app->view_y;
 		if (app->is_clicked_alive == 1)
 		{
 			app->map[y_mouse][x_mouse] = 0;

@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:37:18 by gael              #+#    #+#             */
-/*   Updated: 2025/06/20 21:50:45 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/21 01:18:20 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,45 @@ void	present_scene(void)
 	SDL_RenderPresent(app.renderer);
 }
 
-void	draw_grid(int x_start, int y_start, int x_end, int y_end)
+void	draw_map()
 {
-	SDL_SetRenderDrawColor(app.renderer, 128, 128, 128, 255);
-
-	// horizontal
-	y_start = 0;
-	x_end = SCREEN_WIDTH;
-	while (y_start < SCREEN_HEIGHT)
+	for (int y = 0; y < SCREEN_HEIGHT / CELL_SIZE; y++)
 	{
-		y_end = y_start;
-		SDL_RenderDrawLine(app.renderer, x_start, y_start, x_end, y_end);
-		y_start += CELL_SIZE;
+		for (int x = 0; x < SCREEN_WIDTH / CELL_SIZE; x++)
+		{
+			int map_y = app.view_y + y;
+			int map_x = app.view_x + x;
 
-		if (y_start > 100000)
-			break ;
-	}
+			SDL_SetRenderDrawColor(app.renderer, 128, 128, 128, 255);
+			SDL_RenderDrawLine(app.renderer,
+				x * CELL_SIZE,
+				y * CELL_SIZE,
+				x * CELL_SIZE + CELL_SIZE,
+				y * CELL_SIZE
+			);
+			SDL_RenderDrawLine(app.renderer,
+				x * CELL_SIZE,
+				y * CELL_SIZE,
+				x * CELL_SIZE,
+				y * CELL_SIZE + CELL_SIZE
+			);
 
-	// vertical
-	y_start = 0;
-	y_end = SCREEN_HEIGHT;
-	while (x_start < SCREEN_WIDTH)
-	{
-		x_end = x_start;
-		SDL_RenderDrawLine(app.renderer, x_start, y_start, x_end, y_end);
-		x_start += CELL_SIZE;
-
-		if (x_start > 100000)
-			break ;
+			if (x >= 0 && x < GRID_WIDTH*CELL_SIZE
+				&& y >= 0 && y < GRID_HEIGHT*CELL_SIZE
+				&& map_x >= 0 && map_x < GRID_WIDTH
+				&& map_y >= 0 && map_y < GRID_HEIGHT
+				&& app.map[map_y][map_x] == 1)
+			{
+				if (app.launched == PAUSE)
+					SDL_SetRenderDrawColor(app.renderer, 128, 146, 255, 255);
+				else
+					SDL_SetRenderDrawColor(app.renderer, 255, 255, 255, 255);
+				draw_square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+			}
+		}
 	}
 }
+
 
 void	draw_square(int x_start, int y_start, int len)
 {

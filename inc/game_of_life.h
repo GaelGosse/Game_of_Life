@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/06/20 21:45:00 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/21 01:22:14 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_app
 	t_mouse			mouse;
 	int				map[GRID_HEIGHT][GRID_WIDTH];
 	int				copy[GRID_HEIGHT][GRID_WIDTH];
+	int				view_x;
+	int				view_y;
 	int				launched;
 	int				time;
 	int				generations;
@@ -87,7 +89,6 @@ typedef struct s_app
 
 //src/map.c
 void	copy_to_map();
-void	fill_map();
 void	init_map();
 void	print_map(int map[GRID_HEIGHT][GRID_WIDTH]);
 //src/main.c
@@ -96,7 +97,12 @@ int		format_dimensions(int dimension);
 void	apply_rules();
 int		count_alive_cells(int y, int x);
 //src/input.c
+void	arrow_down(t_app *app);
+void	arrow_up(t_app *app);
 void	do_input(void);
+void	mouse_click_down(t_app *app, int x_mouse, int y_mouse);
+void	mouse_click_move(t_app *app, int x_mouse, int y_mouse);
+void	space_bar(t_app *app);
 //src/utils.c
 char	*ft_itoa(int nbr);
 int		num_len(long int nbr);
@@ -106,7 +112,8 @@ void	init_SDL(int screen_h, int screen_w);
 void	init_SDL_font();
 void	init_app_struct(int screen_h, int screen_w);
 //src/draw.c
-void	draw_grid(int x_start, int y_start, int x_end, int y_end);
+void	draw_grid();
+void	draw_map();
 void	draw_square(int x_start, int y_start, int len);
 void	prepare_scene(void);
 void	present_scene(void);

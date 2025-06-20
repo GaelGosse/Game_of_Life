@@ -33,12 +33,11 @@ it will create an executable, that you can launch :
 ✅ Display frame rate <br>
 ✅ Modifications in real time <br>
 
-⬜ Infinite map (camera view) <br>
+✅ Infinite map (camera view) <br>
 ⬜ key lock/unlock : move in map <br>
 
 Add menu bar <br>
-⬜	- display stats <br>
-⬜	- buttons to edit <br><br>
+⬜	- buttons to edit, move, display stats <br><br>
 
 Display stats :<br>
 ⬜	- generation number <br>
