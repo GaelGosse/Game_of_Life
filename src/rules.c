@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:21 by gael              #+#    #+#             */
-/*   Updated: 2024/11/28 02:07:08 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/26 19:39:45 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,19 @@ void	apply_rules()
 		while (x < GRID_WIDTH)
 		{
 			count = count_alive_cells(y, x);
-			if (count != 2 && count != 3)
+			if (app.copy[y][x] == 1 && count != 2 && count != 3)
+			{
 				app.copy[y][x] = 0;
-			else if (count == 3)
+				app.stats.dead++;
+				if (app.stats.alived >= 1)
+					app.stats.alived--;
+			}
+			else if (app.copy[y][x] == 0 && count == 3)
+			{
 				app.copy[y][x] = 1;
+				app.stats.alived++;
+				app.stats.total++;
+			}
 			x++;
 		}
 		y++;

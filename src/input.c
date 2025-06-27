@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:01 by gael              #+#    #+#             */
-/*   Updated: 2025/06/21 01:23:31 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/26 21:29:10 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	mouse_click_down(t_app *app, int x_mouse, int y_mouse)
 			app->is_clicked_dead = 1;
 			app->map[y_mouse][x_mouse] = 1;
 			app->copy[y_mouse][x_mouse] = 1;
+			app->stats.alived++;
+			app->stats.total++;
 		}
 		else
 		{
@@ -33,6 +35,8 @@ void	mouse_click_down(t_app *app, int x_mouse, int y_mouse)
 			app->is_clicked_dead = 0;
 			app->map[y_mouse][x_mouse] = 0;
 			app->copy[y_mouse][x_mouse] = 0;
+			app->stats.alived--;
+			app->stats.total--;
 		}
 	}
 }
@@ -43,13 +47,17 @@ void	mouse_click_move(t_app *app, int x_mouse, int y_mouse)
 	{
 		x_mouse = app->mouse.x / CELL_SIZE + app->view_x;
 		y_mouse = app->mouse.y / CELL_SIZE + app->view_y;
-		if (app->is_clicked_alive == 1)
+		if (app->is_clicked_alive == 1 && app->map[y_mouse][x_mouse] == 1)
 		{
 			app->map[y_mouse][x_mouse] = 0;
 			app->copy[y_mouse][x_mouse] = 0;
+			app->stats.alived--;
+			app->stats.total--;
 		}
-		else if (app->is_clicked_dead == 1)
+		else if (app->is_clicked_dead == 1 && app->map[y_mouse][x_mouse] == 0)
 		{
+			app->stats.alived++;
+			app->stats.total++;
 			app->map[y_mouse][x_mouse] = 1;
 			app->copy[y_mouse][x_mouse] = 1;
 		}
@@ -110,10 +118,23 @@ void	do_input(void)
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.scancode)
 				{
+					case 11:
+						// h: stats
+						if (app.stats.visible == 0)
+							app.stats.visible = 1;
+						else
+							app.stats.visible = 0;
+						break;
 					case 21:
 						// r : reset
 						if (app.launched == PAUSE)
+						{
+							app.stats.generations = 0;
+							app.stats.alived = 0;
+							app.stats.dead = 0;
+							app.stats.total = 0;
 							init_map();
+						}
 						break;
 					case 41:
 						// esc

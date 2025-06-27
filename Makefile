@@ -10,6 +10,8 @@ SRC =	src/main.c \
 		src/draw.c \
 		src/map.c \
 		src/rules.c \
+		src/stats.c \
+		src/display.c \
 		src/utils.c
 # --------------------------------- end srcs --------------------------------- #
 

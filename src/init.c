@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2025/06/21 01:23:59 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/26 21:26:48 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,32 @@ void	init_app_struct(int screen_h, int screen_w)
 {
 	app.renderer = NULL;
 	app.window = NULL;
-	app.mouse.x = 0;
-	app.mouse.y = 0;
 	init_map();
 	app.view_x = 50;
 	app.view_y = 50;
 	app.launched = PAUSE;
 	app.time = 50;
-	app.generations = 0;
 	app.play_time = 1000.0;
 	app.is_clicked_dead = 0;
 	app.is_clicked_alive = 0;
+	memset(&app.mouse, 0, sizeof(t_mouse));
+	memset(&app.stats, 0, sizeof(t_stats));
 	init_SDL_font();
 	init_SDL(screen_h, screen_w);
+
+	app.mouse.x = 0;
+	app.mouse.y = 0;
+	memset(&app.stats.display_time, 0, 23 * sizeof(char));
+	memset(&app.stats.display_cells, 0, 20 * sizeof(char));
+	memset(&app.stats.display_gen, 0, 14 * sizeof(char));
+	memset(&app.stats.display_alived, 0, 17 * sizeof(char));
+	memset(&app.stats.display_dead, 0, 15 * sizeof(char));
+	memset(&app.stats.display_total, 0, 16 * sizeof(char));
+	app.stats.visible = 0;
+	app.stats.generations = 0;
+	app.stats.alived = 0;
+	app.stats.dead = 0;
+	app.stats.total = 0;
 }
 
 void	clean_up()

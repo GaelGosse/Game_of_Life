@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:13 by gael              #+#    #+#             */
-/*   Updated: 2025/06/21 00:16:59 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/26 21:30:10 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	main(int argc, char **argv)
 			y_end = 0;
 	int		screen_h = SCREEN_HEIGHT;
 	int		screen_w = SCREEN_WIDTH;
-	char	display_time[23];
-	char	*seconds_in_str;
 
 	printf("argc: %i\n", argc);
 	if (argc != 3 && argc != 1)
@@ -51,7 +49,6 @@ int	main(int argc, char **argv)
 	init_app_struct(screen_h, screen_w);
 	atexit(clean_up);
 	// clrscr();
-	SDL_Color	white = {255, 255, 255, 255};
 	Uint32		last_update = SDL_GetTicks();
 
 	while (1)
@@ -64,16 +61,15 @@ int	main(int argc, char **argv)
 		Uint32 now = SDL_GetTicks();
 		if (app.launched == PLAY && (int)(now - last_update) >= app.time)
 		{
+			// app.stats.alived = 0;
 			apply_rules();
 			last_update = now;
-			app.generations++;
+			app.stats.generations++;
 		}
 
-		seconds_in_str = ft_itoa(app.play_time);
-		strcpy(display_time, "Time per frame (ms): ");
-		strcat(display_time, seconds_in_str);
+		if (app.stats.visible == 1)
+			display_stats();
 
-		render_text(display_time, 10, 10, white);
 		present_scene();
 
 		SDL_Delay(10);

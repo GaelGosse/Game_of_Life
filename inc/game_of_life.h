@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_of_life.h                                     :+:      :+:    :+:   */
+/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/06/21 01:22:14 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/26 21:30:28 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,36 @@ typedef struct s_mouse
 	int	y;
 }		t_mouse;
 
+typedef struct s_stats
+{
+	int		visible;
+	char	display_time[23];
+	char	display_cells[20];
+	char	display_gen[14];
+	char	display_alived[17];
+	char	display_dead[15];
+	char	display_total[16];
+	int		generations;
+	int		alived;
+	int		dead;
+	int		total;
+}		t_stats;
+
 typedef struct s_app
 {
 	SDL_Renderer	*renderer;
 	SDL_Window		*window;
-	t_mouse			mouse;
 	int				map[GRID_HEIGHT][GRID_WIDTH];
 	int				copy[GRID_HEIGHT][GRID_WIDTH];
 	int				view_x;
 	int				view_y;
 	int				launched;
 	int				time;
-	int				generations;
 	double			play_time;
 	int				is_clicked_dead;
 	int				is_clicked_alive;
+	t_mouse			mouse;
+	t_stats			stats;
 	TTF_Font		*font;
 }					t_app;
 // ---------------------------- end struct ---------------------------------- //
@@ -93,6 +108,8 @@ void	init_map();
 void	print_map(int map[GRID_HEIGHT][GRID_WIDTH]);
 //src/main.c
 int		format_dimensions(int dimension);
+//src/display.c
+void	display_stats();
 //src/rules.c
 void	apply_rules();
 int		count_alive_cells(int y, int x);
@@ -112,11 +129,12 @@ void	init_SDL(int screen_h, int screen_w);
 void	init_SDL_font();
 void	init_app_struct(int screen_h, int screen_w);
 //src/draw.c
-void	draw_grid();
 void	draw_map();
 void	draw_square(int x_start, int y_start, int len);
 void	prepare_scene(void);
 void	present_scene(void);
 void	render_text(const char *text, int x, int y, SDL_Color color);
+//src/stats.c
+void	count_cells(void);
 
 #endif
