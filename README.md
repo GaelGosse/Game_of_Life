@@ -36,9 +36,7 @@ it will create an executable, that you can launch :
 ✅ Modifications in real time <br>
 
 ✅ Infinite map (camera view) <br>
-⬜ draw map with px not cell <br>
-	offset in px
-	start/end draw cells with modulo of cell_size
+✅ draw map with px not cell <br>
 
 ⬜ key lock/unlock : move in map <br>
 	mouse position when move to know where to move map
@@ -48,7 +46,7 @@ Display stats :<br>
 ✅	- generation number <br>
 ✅	- alived cells <br>
 ✅	- dead cells <br>
-✅	- total cells <br><br>
+✅	- total cells <br>
 
 ⬜ Define map size with arg <br>
 ⬜ Copy/paste features <br>
@@ -58,8 +56,10 @@ Display stats :<br>
 ⬜ Heat map <br>
 	create another copy map
 	add one to a cell each generation when
+
 ⬜ Achievments (structures, pattern, etc...) <br>
 	start an offline wiki db where each row of structures has 1 if achieved and 0 not
+
 ⬜ Improve graphic with life (when structures disappear fireworks) <br>
 	make drops/sparks comes out from cell or structures : pixels move in opposite direction of origin
 

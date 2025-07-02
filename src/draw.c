@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:37:18 by gael              #+#    #+#             */
-/*   Updated: 2025/06/26 00:15:24 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/28 22:09:44 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,43 +30,49 @@ void	present_scene(void)
 
 void	draw_map()
 {
-	for (int y = 0; y < SCREEN_HEIGHT / CELL_SIZE; y++)
+	for (int x = 0; x < SCREEN_WIDTH_PX; x++)
 	{
-		for (int x = 0; x < SCREEN_WIDTH / CELL_SIZE; x++)
+		int view_x = x + (app.maps.offset_x % CELL_SIZE_PX);
+		for (int y = 0; y < SCREEN_HEIGHT_PX; y++)
 		{
-			int map_y = app.view_y + y;
-			int map_x = app.view_x + x;
-
-			SDL_SetRenderDrawColor(app.renderer, 128, 128, 128, 255);
-			SDL_RenderDrawLine(app.renderer,
-				x * CELL_SIZE,
-				y * CELL_SIZE,
-				x * CELL_SIZE + CELL_SIZE,
-				y * CELL_SIZE
-			);
-			SDL_RenderDrawLine(app.renderer,
-				x * CELL_SIZE,
-				y * CELL_SIZE,
-				x * CELL_SIZE,
-				y * CELL_SIZE + CELL_SIZE
-			);
-
-			if (x >= 0 && x < GRID_WIDTH*CELL_SIZE
-				&& y >= 0 && y < GRID_HEIGHT*CELL_SIZE
-				&& map_x >= 0 && map_x < GRID_WIDTH
-				&& map_y >= 0 && map_y < GRID_HEIGHT
-				&& app.map[map_y][map_x] == 1)
+			int view_y = y + (app.maps.offset_y % CELL_SIZE_PX);
+			if (view_y % CELL_SIZE_PX == 0)
+			{
+				SDL_SetRenderDrawColor(app.renderer, 128, 128, 128, 255);
+				SDL_RenderDrawLine(app.renderer,
+					x + 1,
+					y,
+					x + CELL_SIZE_PX - 1,
+					y);
+			}
+			if (view_x % CELL_SIZE_PX == 0)
+			{
+				SDL_SetRenderDrawColor(app.renderer, 128, 128, 128, 255);
+				SDL_RenderDrawLine(app.renderer,
+					x,
+					y,
+					x,
+					y + CELL_SIZE_PX - 1);
+			}
+			int y_cell = (y + app.maps.offset_x) / CELL_SIZE_PX;
+			int x_cell = (x + app.maps.offset_y) / CELL_SIZE_PX;
+			if (app.maps.map[y_cell][x_cell] == 1
+				&& ((x + app.maps.offset_x) % CELL_SIZE_PX) != 0
+				&& ((y + app.maps.offset_y) % CELL_SIZE_PX) != 0)
 			{
 				if (app.launched == PAUSE)
 					SDL_SetRenderDrawColor(app.renderer, 128, 146, 255, 255);
 				else
 					SDL_SetRenderDrawColor(app.renderer, 255, 255, 255, 255);
-				draw_square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+				SDL_RenderDrawLine(app.renderer,
+					x,
+					y,
+					x,
+					y);
 			}
 		}
 	}
 }
-
 
 void	draw_square(int x_start, int y_start, int len)
 {

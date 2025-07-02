@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:44:24 by gael              #+#    #+#             */
-/*   Updated: 2025/06/26 21:31:03 by gael             ###   ########.fr       */
+/*   Updated: 2025/06/30 18:50:20 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	display_stats()
 	strcpy(app.stats.display_time, "Time per frame (ms): ");
 	strcat(app.stats.display_time, ft_itoa(app.play_time));
 	render_text(app.stats.display_time, 10, 10, white);
+
+	if (app.move == PLAY)
+		strcpy(app.stats.display_move, "Move");
+	else
+		strcpy(app.stats.display_move, "Click");
+	render_text(app.stats.display_move, 300, 10, white);
 
 	strcpy(app.stats.display_cells, "Cells");
 	render_text(app.stats.display_cells, 10, 540, white);

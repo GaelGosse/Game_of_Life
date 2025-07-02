@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:20 by gael              #+#    #+#             */
-/*   Updated: 2025/06/26 00:16:57 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/02 17:07:56 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,31 @@ void	init_map()
 	int	y;
 
 	y = 0;
-	while (y < GRID_HEIGHT)
+	while (y < GRID_HEIGHT_CELL)
 	{
 		x = 0;
-		while (x < GRID_WIDTH)
+		while (x < GRID_WIDTH_CELL)
 		{
-			app.map[y][x] = 0;
-			app.copy[y][x] = 0;
+			app.maps.map[y][x] = 0;
+			app.maps.copy[y][x] = 0;
 			x++;
 		}
 		y++;
 	}
 }
 
-void	print_map(int map[GRID_HEIGHT][GRID_WIDTH])
+void	print_map(int map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL])
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < GRID_HEIGHT)
+	while (y < GRID_HEIGHT_CELL)
 	{
 		x = 0;
-		while (x < GRID_WIDTH)
+		while (x < GRID_WIDTH_CELL)
 		{
-			printf(" %i ", map[y][x]);
+			printf("%i", map[y][x]);
 			x++;
 		}
 		printf("\n");
@@ -58,12 +58,12 @@ void	copy_to_map()
 	int	x = 0;
 	int	y = 0;
 
-	while (y < GRID_HEIGHT)
+	while (y < GRID_HEIGHT_CELL)
 	{
 		x = 0;
-		while (x < GRID_WIDTH)
+		while (x < GRID_WIDTH_CELL)
 		{
-			app.map[y][x] = app.copy[y][x];
+			app.maps.map[y][x] = app.maps.copy[y][x];
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2025/06/26 21:26:48 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/02 17:08:22 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	init_SDL(int screen_h, int screen_w)
 	if (!app.window)
 	{
 		printf("Failed to open %d x %d window: %s\n", \
-		SCREEN_WIDTH, \
-		SCREEN_HEIGHT, \
+		SCREEN_WIDTH_PX, \
+		SCREEN_HEIGHT_PX, \
 		SDL_GetError());
 		exit(1);
 	}
@@ -69,22 +69,25 @@ void	init_app_struct(int screen_h, int screen_w)
 {
 	app.renderer = NULL;
 	app.window = NULL;
-	init_map();
-	app.view_x = 50;
-	app.view_y = 50;
 	app.launched = PAUSE;
+	app.move = PAUSE;
 	app.time = 50;
 	app.play_time = 1000.0;
 	app.is_clicked_dead = 0;
 	app.is_clicked_alive = 0;
 	memset(&app.mouse, 0, sizeof(t_mouse));
 	memset(&app.stats, 0, sizeof(t_stats));
+	memset(&app.maps, 0, sizeof(t_maps));
 	init_SDL_font();
 	init_SDL(screen_h, screen_w);
 
 	app.mouse.x = 0;
 	app.mouse.y = 0;
+	app.mouse.x_start_move = -1;
+	app.mouse.y_start_move = -1;
+
 	memset(&app.stats.display_time, 0, 23 * sizeof(char));
+	memset(&app.stats.display_move, 0, 4 * sizeof(char));
 	memset(&app.stats.display_cells, 0, 20 * sizeof(char));
 	memset(&app.stats.display_gen, 0, 14 * sizeof(char));
 	memset(&app.stats.display_alived, 0, 17 * sizeof(char));
@@ -95,6 +98,12 @@ void	init_app_struct(int screen_h, int screen_w)
 	app.stats.alived = 0;
 	app.stats.dead = 0;
 	app.stats.total = 0;
+
+	app.maps.initial_offset_x = 135;
+	app.maps.initial_offset_y = 135;
+	app.maps.offset_x = 135;
+	app.maps.offset_y = 135;
+	init_map();
 }
 
 void	clean_up()

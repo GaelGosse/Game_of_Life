@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
+/*   game_of_life.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/06/26 21:30:28 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/02 17:04:33 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@
 // ------------------------------ define ------------------------------------ //
 # define PLAY 1
 # define PAUSE 0
-# define CELL_SIZE 20
-# define GRID_WIDTH 200
-# define GRID_HEIGHT 200
-# define SCREEN_WIDTH 40 * CELL_SIZE
-# define SCREEN_HEIGHT 30 * CELL_SIZE
+# define CELL_SIZE_PX 20
+# define GRID_WIDTH_CELL 50
+# define GRID_HEIGHT_CELL 50
+# define GRID_WIDTH_PX GRID_WIDTH_CELL * CELL_SIZE_PX
+# define GRID_HEIGHT_PX GRID_HEIGHT_CELL * CELL_SIZE_PX
+# define SCREEN_WIDTH_PX 800
+# define SCREEN_HEIGHT_PX 600
 // ---------------------------- end define ---------------------------------- //
 
 // ------------------------------ struct ------------------------------------ //
@@ -66,12 +68,15 @@ typedef struct s_mouse
 {
 	int	x;
 	int	y;
+	int	x_start_move;
+	int	y_start_move;
 }		t_mouse;
 
 typedef struct s_stats
 {
-	int		visible;
+	int		visible; // 0 or 1
 	char	display_time[23];
+	char	display_move[4];
 	char	display_cells[20];
 	char	display_gen[14];
 	char	display_alived[17];
@@ -83,21 +88,30 @@ typedef struct s_stats
 	int		total;
 }		t_stats;
 
+typedef struct s_maps
+{
+	int				map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL];
+	int				copy[GRID_HEIGHT_CELL][GRID_WIDTH_CELL];
+	int				heat[GRID_HEIGHT_CELL][GRID_WIDTH_CELL];
+	int				initial_offset_x; // px
+	int				initial_offset_y; // px
+	int				offset_x; // px
+	int				offset_y; // px
+}	t_maps;
+
 typedef struct s_app
 {
 	SDL_Renderer	*renderer;
 	SDL_Window		*window;
-	int				map[GRID_HEIGHT][GRID_WIDTH];
-	int				copy[GRID_HEIGHT][GRID_WIDTH];
-	int				view_x;
-	int				view_y;
-	int				launched;
-	int				time;
-	double			play_time;
-	int				is_clicked_dead;
-	int				is_clicked_alive;
+	int				launched; // PLAY / PAUSE
+	int				move; // PLAY / PAUSE
+	int				time; // ms
+	double			play_time; // ms
+	int				is_clicked_dead; // 0 or 1
+	int				is_clicked_alive; // 0 or 1
 	t_mouse			mouse;
 	t_stats			stats;
+	t_maps			maps;
 	TTF_Font		*font;
 }					t_app;
 // ---------------------------- end struct ---------------------------------- //
@@ -105,7 +119,7 @@ typedef struct s_app
 //src/map.c
 void	copy_to_map();
 void	init_map();
-void	print_map(int map[GRID_HEIGHT][GRID_WIDTH]);
+void	print_map(int map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL]);
 //src/main.c
 int		format_dimensions(int dimension);
 //src/display.c

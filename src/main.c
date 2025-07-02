@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:13 by gael              #+#    #+#             */
-/*   Updated: 2025/06/26 21:30:10 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/01 01:17:56 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	main(int argc, char **argv)
 			y_start = 0,
 			x_end = 0,
 			y_end = 0;
-	int		screen_h = SCREEN_HEIGHT;
-	int		screen_w = SCREEN_WIDTH;
+	int		screen_h = SCREEN_HEIGHT_PX;
+	int		screen_w = SCREEN_WIDTH_PX;
 
 	printf("argc: %i\n", argc);
 	if (argc != 3 && argc != 1)
@@ -51,10 +51,13 @@ int	main(int argc, char **argv)
 	// clrscr();
 	Uint32		last_update = SDL_GetTicks();
 
+	printf(GREEN"grid x %i \n"RST, GRID_WIDTH_PX);
+	printf(GREEN"grid y %i \n"RST, GRID_HEIGHT_PX);
+	printf(GREEN"screen x %i \n"RST, SCREEN_WIDTH_PX);
+	printf(GREEN"screen y %i \n"RST, SCREEN_HEIGHT_PX);
 	while (1)
 	{
 		prepare_scene();
-
 		draw_map();
 		do_input();
 

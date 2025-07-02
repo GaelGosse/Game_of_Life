@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:54:27 by gael              #+#    #+#             */
-/*   Updated: 2024/11/29 23:55:16 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/02 17:00:38 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ char	*ft_itoa(int nbr)
 		nb /= 10;
 	}
 	return (str);
+}
+
+int	abs(int nbr)
+{
+	if (nbr < 0)
+		return nbr * -1;
+	return nbr;
 }
