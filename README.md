@@ -17,13 +17,13 @@ it will create an executable, that you can launch :
 
 ## How to Play
 
-<kbd> Mouse click </kbd> : make a cell alive or dead, long click while moving to affect more cells <br>
-<kbd> Space </kbd> : play/pause the simulation <br>
-<kbd> ⬆ </kbd> : Increase the time between each frame <br>
-<kbd> ⬇ </kbd> : Decrease the time between each frame <br>
-<kbd> R </kbd> : Remove every alive cells <br>
-<kbd> H </kbd> : Display stats <br>
-<kbd> M </kbd> : Move <br>
+<kbd> ‎ Mouse click ‎ </kbd> : make a cell alive or dead, long click while moving to affect more cells <br>
+<kbd> ‎ Space ‎ </kbd> : play/pause the simulation <br>
+<kbd> ‎ ⬆ ‎ </kbd> : Increase the time between each frame <br>
+<kbd> ‎ ⬇ ‎ </kbd> : Decrease the time between each frame <br>
+<kbd> ‎ R ‎ </kbd> : Remove every alive cells <br>
+<kbd> ‎ H ‎ </kbd> : Display stats <br>
+<kbd> ‎ M ‎ </kbd> : Move <br>
 
 ## Road map
 
@@ -38,16 +38,18 @@ it will create an executable, that you can launch :
 ✅ Infinite map (camera view) <br>
 ✅ draw map with px not cell <br>
 
-⬜ key lock/unlock : move in map <br>
-	mouse position when move to know where to move map
-	offset is the variable
+✅ key lock/unlock : move in map <br>
+✅ Zoom in/Out <br>
 
 Display stats :<br>
 ✅	- generation number <br>
 ✅	- alived cells <br>
 ✅	- dead cells <br>
 ✅	- total cells <br>
+⬜	- coordinates on maps <br>
+⬜	- zoom level <br>
 
+⬜ change macro in header file to variables<br>
 ⬜ Define map size with arg <br>
 ⬜ Copy/paste features <br>
 ⬜ draw lines feature <br>

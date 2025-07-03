@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/07/02 17:04:33 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/03 23:07:27 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@
 // ------------------------------ define ------------------------------------ //
 # define PLAY 1
 # define PAUSE 0
-# define CELL_SIZE_PX 20
-# define GRID_WIDTH_CELL 50
-# define GRID_HEIGHT_CELL 50
-# define GRID_WIDTH_PX GRID_WIDTH_CELL * CELL_SIZE_PX
-# define GRID_HEIGHT_PX GRID_HEIGHT_CELL * CELL_SIZE_PX
+# define GRID_WIDTH_CELL 200
+# define GRID_HEIGHT_CELL 200
+# define GRID_WIDTH_PX GRID_WIDTH_CELL * 20
+# define GRID_HEIGHT_PX GRID_HEIGHT_CELL * 20
 # define SCREEN_WIDTH_PX 800
 # define SCREEN_HEIGHT_PX 600
 // ---------------------------- end define ---------------------------------- //
@@ -68,13 +67,13 @@ typedef struct s_mouse
 {
 	int	x;
 	int	y;
-	int	x_start_move;
-	int	y_start_move;
+	int	x_start_move; // used to help move mouse
+	int	y_start_move; // used to help move mouse
 }		t_mouse;
 
 typedef struct s_stats
 {
-	int		visible; // 0 or 1
+	int		visible; // (0 or 1) : if stats is visible or not at screen
 	char	display_time[23];
 	char	display_move[4];
 	char	display_cells[20];
@@ -82,33 +81,38 @@ typedef struct s_stats
 	char	display_alived[17];
 	char	display_dead[15];
 	char	display_total[16];
-	int		generations;
-	int		alived;
-	int		dead;
-	int		total;
+	int		generations; // nbr of frame since PLAY
+	int		alived; // actual alive cell in PLAY time
+	int		dead; // count number of deaths
+	int		total; // all time number of lived cells
 }		t_stats;
 
 typedef struct s_maps
 {
-	int				map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL];
-	int				copy[GRID_HEIGHT_CELL][GRID_WIDTH_CELL];
-	int				heat[GRID_HEIGHT_CELL][GRID_WIDTH_CELL];
-	int				initial_offset_x; // px
-	int				initial_offset_y; // px
-	int				offset_x; // px
-	int				offset_y; // px
+	int				grid_width_cell; // (cell) : size of map by cells
+	int				grid_height_cell; // (cell) : size of map by cells
+	int				map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL]; // map is used to display
+	int				copy[GRID_HEIGHT_CELL][GRID_WIDTH_CELL]; // copy map is used to apply rules
+	int				heat[GRID_HEIGHT_CELL][GRID_WIDTH_CELL]; // map with most living cells
+	int				initial_offset_x; // (px) : used to help moving with mouse
+	int				initial_offset_y; // (px) : used to help moving with mouse
+	int				offset_x; // (px) : offset used to display map
+	int				offset_y; // (px) : offset used to display map
+	int				cell_size_px; // (px) : size of a single cell
 }	t_maps;
 
 typedef struct s_app
 {
 	SDL_Renderer	*renderer;
 	SDL_Window		*window;
-	int				launched; // PLAY / PAUSE
-	int				move; // PLAY / PAUSE
-	int				time; // ms
-	double			play_time; // ms
-	int				is_clicked_dead; // 0 or 1
-	int				is_clicked_alive; // 0 or 1
+	int				launched; // (PLAY / PAUSE) : used to apply rules or let user draw cells
+	int				move; // (PLAY / PAUSE) : allow user to move or draw
+	int				time; // (ms) : time since this program has been executed
+	double			play_time; // (ms) : time between frame
+	int				is_clicked_dead; // (0 or 1) :
+	int				is_clicked_alive; // (0 or 1) :
+	int				screen_w;
+	int				screen_h;
 	t_mouse			mouse;
 	t_stats			stats;
 	t_maps			maps;
@@ -134,21 +138,23 @@ void	do_input(void);
 void	mouse_click_down(t_app *app, int x_mouse, int y_mouse);
 void	mouse_click_move(t_app *app, int x_mouse, int y_mouse);
 void	space_bar(t_app *app);
+void	zoom_in(t_app *app);
+void	zoom_out(t_app *app);
 //src/utils.c
+int		abs(int nbr);
 char	*ft_itoa(int nbr);
 int		num_len(long int nbr);
 //src/init.c
 void	clean_up();
-void	init_SDL(int screen_h, int screen_w);
-void	init_SDL_font();
-void	init_app_struct(int screen_h, int screen_w);
+void	init_app_struct();
 //src/draw.c
 void	draw_map();
 void	draw_square(int x_start, int y_start, int len);
+//src/sdl.c
+void	init_SDL();
+void	init_SDL_font();
 void	prepare_scene(void);
 void	present_scene(void);
 void	render_text(const char *text, int x, int y, SDL_Color color);
-//src/stats.c
-void	count_cells(void);
 
 #endif

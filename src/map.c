@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:20 by gael              #+#    #+#             */
-/*   Updated: 2025/07/02 17:07:56 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/03 03:40:25 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	print_map(int map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL])
 
 void	copy_to_map()
 {
+	// copy map is used to apply rules and map to display
 	int	x = 0;
 	int	y = 0;
 

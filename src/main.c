@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:13 by gael              #+#    #+#             */
-/*   Updated: 2025/07/01 01:17:56 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/03 03:48:34 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	format_dimensions(int dimension)
 {
 	if (dimension <= 0)
 	{
-		printf("dimensions must be positive\n");
+		printf("dimensions must be positive and \n");
 		exit(1);
 	}
 	return (dimension);
@@ -30,8 +30,6 @@ int	main(int argc, char **argv)
 			y_start = 0,
 			x_end = 0,
 			y_end = 0;
-	int		screen_h = SCREEN_HEIGHT_PX;
-	int		screen_w = SCREEN_WIDTH_PX;
 
 	printf("argc: %i\n", argc);
 	if (argc != 3 && argc != 1)
@@ -41,20 +39,15 @@ int	main(int argc, char **argv)
 	}
 	if (argc == 3)
 	{
-		screen_h = format_dimensions(atoi(argv[1]));
-		screen_w = format_dimensions(atoi(argv[2]));
+		app.maps.grid_height_cell = format_dimensions(atoi(argv[1]));
+		app.maps.grid_width_cell = format_dimensions(atoi(argv[2]));
 	}
 
 	memset(&app, 0, sizeof(t_app));
-	init_app_struct(screen_h, screen_w);
+	init_app_struct();
 	atexit(clean_up);
-	// clrscr();
-	Uint32		last_update = SDL_GetTicks();
 
-	printf(GREEN"grid x %i \n"RST, GRID_WIDTH_PX);
-	printf(GREEN"grid y %i \n"RST, GRID_HEIGHT_PX);
-	printf(GREEN"screen x %i \n"RST, SCREEN_WIDTH_PX);
-	printf(GREEN"screen y %i \n"RST, SCREEN_HEIGHT_PX);
+	Uint32		last_update = SDL_GetTicks();
 	while (1)
 	{
 		prepare_scene();

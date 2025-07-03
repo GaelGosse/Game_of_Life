@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:21 by gael              #+#    #+#             */
-/*   Updated: 2025/06/28 17:57:40 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/03 03:38:32 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ extern t_app	app;
 
 void	apply_rules()
 {
+	// Apply Game of Life rules :
+	// Dead cell become alive if 3 cells around
+	// Alive cell become dead if there are not 2 or 3 cells alive around
 	int	x = 0;
 	int	y = 0;
 	int count = 0;

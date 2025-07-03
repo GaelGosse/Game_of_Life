@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2025/07/02 17:08:22 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/03 23:07:42 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,15 @@
 
 extern t_app	app;
 
-void	init_SDL(int screen_h, int screen_w)
-{
-	int rendererFlags, windowFlags;
-
-	rendererFlags = SDL_RENDERER_ACCELERATED;
-	windowFlags = 0;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		printf("Couldn't initialize SDL: %s\n", SDL_GetError());
-		exit(1);
-	}
-
-	app.window = SDL_CreateWindow("Game of Life", \
-	SDL_WINDOWPOS_UNDEFINED, \
-	SDL_WINDOWPOS_UNDEFINED, \
-	screen_w, \
-	screen_h, \
-	windowFlags);
-	if (!app.window)
-	{
-		printf("Failed to open %d x %d window: %s\n", \
-		SCREEN_WIDTH_PX, \
-		SCREEN_HEIGHT_PX, \
-		SDL_GetError());
-		exit(1);
-	}
-
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-
-	app.renderer = SDL_CreateRenderer(app.window, -1, rendererFlags);
-	if (!app.renderer)
-	{
-		printf("Failed to create renderer: %s\n", SDL_GetError());
-		exit(1);
-	}
-}
-
-void	init_SDL_font()
-{
-	if (TTF_Init() == -1) {
-		printf("Failed to initialize SDL_ttf: %s\n", TTF_GetError());
-		exit(1);
-	}
-
-	app.font = TTF_OpenFont("font/confession.ttf", 24); // Remplacez par le chemin de votre police
-	if (!app.font) {
-		printf("Failed to load font: %s\n", TTF_GetError());
-		exit(1);
-	}
-}
-
-void	init_app_struct(int screen_h, int screen_w)
+void	init_app_struct()
 {
 	app.renderer = NULL;
 	app.window = NULL;
 	app.launched = PAUSE;
 	app.move = PAUSE;
 	app.time = 50;
+	app.screen_w = 800;
+	app.screen_h = 600;
 	app.play_time = 1000.0;
 	app.is_clicked_dead = 0;
 	app.is_clicked_alive = 0;
@@ -79,7 +30,7 @@ void	init_app_struct(int screen_h, int screen_w)
 	memset(&app.stats, 0, sizeof(t_stats));
 	memset(&app.maps, 0, sizeof(t_maps));
 	init_SDL_font();
-	init_SDL(screen_h, screen_w);
+	init_SDL();
 
 	app.mouse.x = 0;
 	app.mouse.y = 0;
@@ -103,6 +54,7 @@ void	init_app_struct(int screen_h, int screen_w)
 	app.maps.initial_offset_y = 135;
 	app.maps.offset_x = 135;
 	app.maps.offset_y = 135;
+	app.maps.cell_size_px = 20;
 	init_map();
 }
 
