@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:13 by gael              #+#    #+#             */
-/*   Updated: 2025/07/03 03:48:34 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 16:24:37 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		prepare_scene();
-		draw_map();
+		if (app.heat == PLAY)
+			draw_heat();
+		else
+			draw_map();
 		do_input();
 
 		Uint32 now = SDL_GetTicks();
@@ -59,6 +62,7 @@ int	main(int argc, char **argv)
 		{
 			// app.stats.alived = 0;
 			apply_rules();
+			generate_heat_map();
 			last_update = now;
 			app.stats.generations++;
 		}

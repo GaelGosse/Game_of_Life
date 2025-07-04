@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:44:24 by gael              #+#    #+#             */
-/*   Updated: 2025/06/30 18:50:20 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/03 23:37:30 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	display_stats()
 {
 	SDL_Color	white = {255, 255, 255, 255};
 
+	// top
 	strcpy(app.stats.display_time, "Time per frame (ms): ");
 	strcat(app.stats.display_time, ft_itoa(app.play_time));
 	render_text(app.stats.display_time, 10, 10, white);
@@ -26,8 +27,21 @@ void	display_stats()
 		strcpy(app.stats.display_move, "Move");
 	else
 		strcpy(app.stats.display_move, "Click");
-	render_text(app.stats.display_move, 300, 10, white);
+	render_text(app.stats.display_move, 250, 10, white);
 
+	strcpy(app.stats.display_coor_x, "x: ");
+	strcat(app.stats.display_coor_x, ft_itoa(app.maps.offset_x));
+	render_text(app.stats.display_coor_x, 350, 10, white);
+
+	strcpy(app.stats.display_coor_y, "y: ");
+	strcat(app.stats.display_coor_y, ft_itoa(app.maps.offset_y));
+	render_text(app.stats.display_coor_y, 410, 10, white);
+
+	strcpy(app.stats.display_zoom, "zoom: ");
+	strcat(app.stats.display_zoom, ft_itoa(app.maps.cell_size_px));
+	render_text(app.stats.display_zoom, 510, 10, white);
+
+	// bottom
 	strcpy(app.stats.display_cells, "Cells");
 	render_text(app.stats.display_cells, 10, 540, white);
 

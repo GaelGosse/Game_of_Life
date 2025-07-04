@@ -22,8 +22,9 @@ it will create an executable, that you can launch :
 <kbd> ‎ ⬆ ‎ </kbd> : Increase the time between each frame <br>
 <kbd> ‎ ⬇ ‎ </kbd> : Decrease the time between each frame <br>
 <kbd> ‎ R ‎ </kbd> : Remove every alive cells <br>
-<kbd> ‎ H ‎ </kbd> : Display stats <br>
+<kbd> ‎ F ‎ </kbd> : Display stats <br>
 <kbd> ‎ M ‎ </kbd> : Move <br>
+<kbd> ‎ H ‎ </kbd> : Display heat map <br>
 
 ## Road map
 
@@ -46,18 +47,18 @@ Display stats :<br>
 ✅	- alived cells <br>
 ✅	- dead cells <br>
 ✅	- total cells <br>
-⬜	- coordinates on maps <br>
-⬜	- zoom level <br>
+✅	- coordinates on maps <br>
+✅	- zoom level <br>
+
+✅ Heat map v1<br>
+⬜ Heat map v2 :<br>
+	- algo for cooling cell
+	- colors blue -> green -> yellow -> orange -> red -> red/white (if the same cell stil alived after 10gen)
 
 ⬜ change macro in header file to variables<br>
-⬜ Define map size with arg <br>
-⬜ Copy/paste features <br>
 ⬜ draw lines feature <br>
+⬜ Copy/paste features <br>
 ⬜ Pattern generator feature <br>
-
-⬜ Heat map <br>
-	create another copy map
-	add one to a cell each generation when
 
 ⬜ Achievments (structures, pattern, etc...) <br>
 	start an offline wiki db where each row of structures has 1 if achieved and 0 not

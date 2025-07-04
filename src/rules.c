@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:21 by gael              #+#    #+#             */
-/*   Updated: 2025/07/03 03:38:32 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 16:24:00 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,21 @@ void	apply_rules()
 		x = 0;
 		while (x < GRID_WIDTH_CELL)
 		{
-			count = count_alive_cells(y, x);
+			count = count_alive_cells_around(y, x);
 			if (app.maps.copy[y][x] == 1 && count != 2 && count != 3)
 			{
 				app.maps.copy[y][x] = 0;
 				app.stats.dead++;
 				if (app.stats.alived >= 1)
+				{
 					app.stats.alived--;
+					// app.maps.heat[y][x]--;
+				}
 			}
 			else if (app.maps.copy[y][x] == 0 && count == 3)
 			{
 				app.maps.copy[y][x] = 1;
+				// app.maps.heat[y][x]++;
 				app.stats.alived++;
 				app.stats.total++;
 			}
@@ -49,7 +53,7 @@ void	apply_rules()
 	copy_to_map();
 }
 
-int	count_alive_cells(int y, int x)
+int	count_alive_cells_around(int y, int x)
 {
 	int	count = 0;
 
@@ -93,3 +97,4 @@ int	count_alive_cells(int y, int x)
 
 	return (count);
 }
+

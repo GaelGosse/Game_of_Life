@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2025/07/03 23:07:42 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 16:28:13 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,32 @@ void	init_app_struct()
 	app.stats.dead = 0;
 	app.stats.total = 0;
 
-	app.maps.initial_offset_x = 135;
-	app.maps.initial_offset_y = 135;
-	app.maps.offset_x = 135;
-	app.maps.offset_y = 135;
+	app.maps.initial_offset_x = 5;
+	app.maps.initial_offset_y = 5;
+	app.maps.offset_x = 5;
+	app.maps.offset_y = 5;
 	app.maps.cell_size_px = 20;
 	init_map();
+}
+
+void	init_map()
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < GRID_HEIGHT_CELL)
+	{
+		x = 0;
+		while (x < GRID_WIDTH_CELL)
+		{
+			app.maps.map[y][x] = 0;
+			app.maps.copy[y][x] = 0;
+			app.maps.heat[y][x] = 0;
+			x++;
+		}
+		y++;
+	}
 }
 
 void	clean_up()

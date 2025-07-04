@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:01 by gael              #+#    #+#             */
-/*   Updated: 2025/07/03 23:20:55 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 16:24:14 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	mouse_click_down(t_app *app, int x_mouse, int y_mouse)
 			app->is_clicked_dead = 1;
 			app->maps.map[y_mouse][x_mouse] = 1;
 			app->maps.copy[y_mouse][x_mouse] = 1;
+			// app->maps.heat[y_mouse][x_mouse]++;
 			app->stats.alived++;
 			app->stats.total++;
 		}
@@ -35,6 +36,7 @@ void	mouse_click_down(t_app *app, int x_mouse, int y_mouse)
 			app->is_clicked_dead = 0;
 			app->maps.map[y_mouse][x_mouse] = 0;
 			app->maps.copy[y_mouse][x_mouse] = 0;
+			// app->maps.heat[y_mouse][x_mouse]--;
 			app->stats.alived--;
 			app->stats.total--;
 		}
@@ -56,15 +58,17 @@ void	mouse_click_move(t_app *app, int x_mouse, int y_mouse)
 		{
 			app->maps.map[y_mouse][x_mouse] = 0;
 			app->maps.copy[y_mouse][x_mouse] = 0;
+			// app->maps.heat[y_mouse][x_mouse]--;
 			app->stats.alived--;
 			app->stats.total--;
 		}
 		else if (app->is_clicked_dead == 1 && app->maps.map[y_mouse][x_mouse] == 0)
 		{
-			app->stats.alived++;
-			app->stats.total++;
 			app->maps.map[y_mouse][x_mouse] = 1;
 			app->maps.copy[y_mouse][x_mouse] = 1;
+			// app->maps.heat[y_mouse][x_mouse]++;
+			app->stats.alived++;
+			app->stats.total++;
 		}
 	}
 	else if (app->move == PLAY && app->mouse.x_start_move != -1)
@@ -153,12 +157,19 @@ void	do_input(void)
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.scancode)
 				{
-					case 11:
-						// h: stats
+					case 9:
+						// f: stats
 						if (app.stats.visible == 0)
 							app.stats.visible = 1;
 						else
 							app.stats.visible = 0;
+						break;
+					case 11:
+						// h: stats
+						if (app.heat == PAUSE)
+							app.heat = PLAY;
+						else
+							app.heat = PAUSE;
 						break;
 					case 21:
 						// r : reset

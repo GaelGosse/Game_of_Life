@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_of_life.h                                     :+:      :+:    :+:   */
+/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/07/03 23:07:27 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 16:28:21 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 // ------------------------------ define ------------------------------------ //
 # define PLAY 1
 # define PAUSE 0
-# define GRID_WIDTH_CELL 200
-# define GRID_HEIGHT_CELL 200
+# define GRID_WIDTH_CELL 50
+# define GRID_HEIGHT_CELL 50
 # define GRID_WIDTH_PX GRID_WIDTH_CELL * 20
 # define GRID_HEIGHT_PX GRID_HEIGHT_CELL * 20
 # define SCREEN_WIDTH_PX 800
@@ -74,6 +74,9 @@ typedef struct s_mouse
 typedef struct s_stats
 {
 	int		visible; // (0 or 1) : if stats is visible or not at screen
+	char	display_coor_x[7];
+	char	display_coor_y[7];
+	char	display_zoom[8];
 	char	display_time[23];
 	char	display_move[4];
 	char	display_cells[20];
@@ -107,6 +110,7 @@ typedef struct s_app
 	SDL_Window		*window;
 	int				launched; // (PLAY / PAUSE) : used to apply rules or let user draw cells
 	int				move; // (PLAY / PAUSE) : allow user to move or draw
+	int				heat; // (PLAY / PAUSE) : display heat map
 	int				time; // (ms) : time since this program has been executed
 	double			play_time; // (ms) : time between frame
 	int				is_clicked_dead; // (0 or 1) :
@@ -122,15 +126,17 @@ typedef struct s_app
 
 //src/map.c
 void	copy_to_map();
-void	init_map();
 void	print_map(int map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL]);
+//src/heat.c
+void	draw_heat();
+void	generate_heat_map();
 //src/main.c
 int		format_dimensions(int dimension);
 //src/display.c
 void	display_stats();
 //src/rules.c
 void	apply_rules();
-int		count_alive_cells(int y, int x);
+int		count_alive_cells_around(int y, int x);
 //src/input.c
 void	arrow_down(t_app *app);
 void	arrow_up(t_app *app);
@@ -147,6 +153,7 @@ int		num_len(long int nbr);
 //src/init.c
 void	clean_up();
 void	init_app_struct();
+void	init_map();
 //src/draw.c
 void	draw_map();
 void	draw_square(int x_start, int y_start, int len);

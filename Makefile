@@ -11,6 +11,7 @@ SRC =	src/main.c \
 		src/map.c \
 		src/rules.c \
 		src/sdl.c \
+		src/heat.c \
 		src/display.c \
 		src/utils.c
 # --------------------------------- end srcs --------------------------------- #
