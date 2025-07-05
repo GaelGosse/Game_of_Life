@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:15 by gael              #+#    #+#             */
-/*   Updated: 2025/07/04 16:28:13 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 18:03:28 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	init_app_struct()
 	app.stats.dead = 0;
 	app.stats.total = 0;
 
-	app.maps.initial_offset_x = 5;
-	app.maps.initial_offset_y = 5;
-	app.maps.offset_x = 5;
-	app.maps.offset_y = 5;
+	app.maps.initial_offset_x = 135;
+	app.maps.initial_offset_y = 135;
+	app.maps.offset_x = 135;
+	app.maps.offset_y = 135;
 	app.maps.cell_size_px = 20;
 	init_map();
 }

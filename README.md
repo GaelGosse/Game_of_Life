@@ -53,6 +53,9 @@ Display stats :<br>
 ✅ Heat map v1<br>
 ⬜ Heat map v2 :<br>
 	- algo for cooling cell
+		heat map with float ?
+		low level of temperature make decrease slowly
+		high level of temperature decrease a bit more than the rest
 	- colors blue -> green -> yellow -> orange -> red -> red/white (if the same cell stil alived after 10gen)
 
 ⬜ change macro in header file to variables<br>
@@ -64,5 +67,5 @@ Display stats :<br>
 	start an offline wiki db where each row of structures has 1 if achieved and 0 not
 
 ⬜ Improve graphic with life (when structures disappear fireworks) <br>
-	make drops/sparks comes out from cell or structures : pixels move in opposite direction of origin
+	make drops/sparks comes out from cell or structures : pixels move in a random direction with the origin in the back
 

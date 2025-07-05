@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:37:44 by gael              #+#    #+#             */
-/*   Updated: 2025/07/03 22:40:39 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 18:02:33 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ void	init_SDL_font()
 
 void	prepare_scene(void)
 {
-	if (app.launched == PAUSE)
+	if (app.heat == PLAY)
+		SDL_SetRenderDrawColor(app.renderer, 22, 22, 22, 255);
+	else if (app.launched == PAUSE)
 		SDL_SetRenderDrawColor(app.renderer, 22, 33, 66, 255);
 	else
 		SDL_SetRenderDrawColor(app.renderer, 22, 22, 22, 255);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
+/*   game_of_life.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/07/04 16:28:21 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/04 17:52:50 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@
 // ------------------------------ define ------------------------------------ //
 # define PLAY 1
 # define PAUSE 0
-# define GRID_WIDTH_CELL 50
-# define GRID_HEIGHT_CELL 50
+# define GRID_WIDTH_CELL 200
+# define GRID_HEIGHT_CELL 200
 # define GRID_WIDTH_PX GRID_WIDTH_CELL * 20
 # define GRID_HEIGHT_PX GRID_HEIGHT_CELL * 20
 # define SCREEN_WIDTH_PX 800
