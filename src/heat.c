@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:51:07 by gael              #+#    #+#             */
-/*   Updated: 2025/07/06 00:08:21 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/30 23:26:51 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	generate_heat_map()
 				app.maps.heat[y][x]++;
 			else if (app.maps.map[y][x] == 0 && app.maps.heat[y][x] > 0)
 				app.maps.heat[y][x]--;
+			if (app.maps.heat[y][x] > 50)
+				app.maps.heat[y][x] = 50;
 			x++;
 		}
 		y++;
@@ -79,11 +81,13 @@ void	draw_heat()
 				&& ((x + app.maps.offset_x) % app.maps.cell_size_px) != 0
 				&& ((y + app.maps.offset_y) % app.maps.cell_size_px) != 0)
 			{
-				int heat_color = 40 + (app.maps.heat[y_cell][x_cell] * 5);
-				if (heat_color > 255)
-					heat_color = 255;
-				SDL_SetRenderDrawColor(app.renderer, heat_color, 40, 0, 255);
-				// fct() : render heat color
+				int heat_level = (app.maps.heat[y_cell][x_cell] * 4);
+				if (heat_level <= 0)
+					heat_level = 1;
+				if (heat_level > 100)
+					heat_level = 100;
+				// printf("heat_level: %i\n", heat_level);
+				render_heat_color(heat_level);
 				SDL_RenderDrawLine(app.renderer,
 					x,
 					y,
@@ -96,6 +100,26 @@ void	draw_heat()
 
 void	render_heat_color(int level)
 {
+	if (level <= 0)
+		printf("error\n");
+	else if (level < 25)
+	{
+		SDL_SetRenderDrawColor(app.renderer, 0, (int)(255 * ((float)level / 25.0)), 255, 255);
+	}
+	else if (level < 50)
+	{
+		SDL_SetRenderDrawColor(app.renderer, 0, 255, (int)(255 * ((50.0 - (float)level) / 50)), 255);
+	}
+	else if (level < 75)
+	{
+		SDL_SetRenderDrawColor(app.renderer, (int)(255 * ((float)level / 75.0)), 255, 0, 255);
+	}
+	else if (level <= 100)
+	{
+		SDL_SetRenderDrawColor(app.renderer, 255, (int)(255 * ((100.0 - (float)level) / 25)), 0, 255);
+	}
+	else
+		printf("error\n");
 	// 100%	(255, 0, 0)		Rouge	(G ↓ pendant que R reste)	1280
 	// 75%	(255, 255, 0)	Jaune	(R ↑ pendant que G reste)	1024
 	// 50%	(0, 255, 0)		Vert	(B ↓ jusqu’à 0)				 768

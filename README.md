@@ -25,6 +25,8 @@ it will create an executable, that you can launch :
 <kbd> ‎ F ‎ </kbd> : Display stats <br>
 <kbd> ‎ M ‎ </kbd> : Move <br>
 <kbd> ‎ H ‎ </kbd> : Display heat map <br>
+<kbd> ‎ P up ‎ </kbd> : Zoom in <br>
+<kbd> ‎ P down ‎ </kbd> : Zoom out <br>
 
 ## Road map
 
@@ -52,16 +54,17 @@ Display stats :<br>
 
 ✅ Heat map v1<br>
 ⬜ Heat map v2 :<br>
-	- algo for cooling cell
-		heat map with float ?
-		low level of temperature make decrease slowly
-		high level of temperature decrease a bit more than the rest
-	- colors blue -> green -> yellow -> orange -> red -> red/white (if the same cell stil alived after 10gen)
+	✅ - colors blue -> green -> yellow -> orange -> red -> red/white (if the same cell stil alived after 10gen)
+	⬜ - algo for cooling cell :
+			nbr alived around a cell is a coeff of cooling/heating (heat map with float)
+		low level of temperature make decrease slowly (heat map with float)
+		high level of temperature decrease a bit more than the rest (heat map with float)
+
 
 ⬜ change macro in header file to variables<br>
 ⬜ draw lines feature <br>
 ⬜ Copy/paste features <br>
-⬜ Pattern generator feature <br>
+⬜ Pattern generator feature (shapes, noise) <br>
 
 ⬜ Achievments (structures, pattern, etc...) <br>
 	start an offline wiki db where each row of structures has 1 if achieved and 0 not

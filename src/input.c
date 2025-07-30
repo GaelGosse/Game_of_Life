@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:01 by gael              #+#    #+#             */
-/*   Updated: 2025/07/04 16:24:14 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/30 23:20:01 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,13 @@ void	mouse_click_move(t_app *app, int x_mouse, int y_mouse)
 
 void	arrow_up(t_app *app)
 {
-	if (app->play_time < 5000)
-		app->play_time *= 1.1;
+	if (app->play_time >= 1000 && app->play_time < 5000)
+		app->play_time += 250;
+	else if (app->play_time >= 100)
+		app->play_time += 100;
+	else if (app->play_time >= 50)
+		app->play_time += 25;
+
 	if (app->launched == PLAY)
 		app->time = (int)app->play_time;
 	else
@@ -103,8 +108,13 @@ void	arrow_up(t_app *app)
 
 void	arrow_down(t_app *app)
 {
-	if (app->play_time > 50)
-		app->play_time *= 0.9;
+	if (app->play_time > 1000 && app->play_time <= 5000)
+		app->play_time -= 250;
+	else if (app->play_time > 100)
+		app->play_time -= 100;
+	else if (app->play_time > 50)
+		app->play_time -= 25;
+
 	if (app->launched == PLAY)
 		app->time = (int)app->play_time;
 	else

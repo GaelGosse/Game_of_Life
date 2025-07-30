@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_of_life.h                                     :+:      :+:    :+:   */
+/*   inc/game_of_life.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:07:16 by gael              #+#    #+#             */
-/*   Updated: 2025/07/04 17:52:50 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/30 23:02:11 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	print_map(int map[GRID_HEIGHT_CELL][GRID_WIDTH_CELL]);
 //src/heat.c
 void	draw_heat();
 void	generate_heat_map();
+void	render_heat_color(int level);
 //src/main.c
 int		format_dimensions(int dimension);
 //src/display.c

@@ -6,7 +6,7 @@
 /*   By: gael <gael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:50:21 by gael              #+#    #+#             */
-/*   Updated: 2025/07/04 16:24:00 by gael             ###   ########.fr       */
+/*   Updated: 2025/07/30 23:08:55 by gael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	apply_rules()
 			else if (app.maps.copy[y][x] == 0 && count == 3)
 			{
 				app.maps.copy[y][x] = 1;
-				// app.maps.heat[y][x]++;
+				app.maps.heat[y][x]++;
 				app.stats.alived++;
 				app.stats.total++;
 			}
